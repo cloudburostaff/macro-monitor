@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Monitor — Macro Monitoring Swarm — Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0f2a4a;--blue:#1f5fa8;--ink:#1a2230;--muted:#5b6776;--line:#e2e7ee;--soft:#f4f6f9;--bg:#e7eaef;}
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .nav{background:var(--navy);color:#fff;}
+  .nav .in{width:min(1000px,94vw);margin:0 auto;padding:14px 0;display:flex;align-items:center;justify-content:space-between;}
+  .nav .brand{display:flex;align-items:center;gap:11px;}
+  .nav .dot{width:30px;height:30px;border-radius:7px;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .nav .nm{font-weight:700;font-size:15px;letter-spacing:-.01em;}
+  .nav a.back{color:#9fc0e6;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;}
+  .nav a.back:hover{color:#fff;}
+  .page{width:min(1000px,94vw);background:#fff;margin:30px auto 0;padding:48px 60px 52px;border-top:4px solid var(--navy);box-shadow:0 2px 26px rgba(15,42,74,.11);}
+  @media(max-width:640px){.page{padding:32px 22px 40px;}}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);}
+  .head{padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:6px;}
+  .head h1{font-size:36px;font-weight:800;color:var(--navy);margin:10px 0 0;letter-spacing:-.02em;}
+  .head .sub{margin-top:12px;font-size:15px;color:var(--muted);}
+  .content h2{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-.01em;margin:34px 0 8px;padding-bottom:8px;border-bottom:2px solid var(--navy);}
+  .content h2:first-of-type{margin-top:20px;}
+  .content p{font-size:14.5px;color:#2b3543;margin:0 0 13px;}
+  .content a{color:var(--blue);}
+  .content strong{color:var(--ink);}
+  .content ul,.content ol{margin:0 0 14px;padding-left:22px;}
+  .content li{font-size:14px;color:#2b3543;margin:5px 0;}
+  .content pre{background:var(--navy);color:#dce7f2;border-radius:9px;padding:16px 18px;overflow-x:auto;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.5;margin:6px 0 16px;}
+  .content code{font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:#eef1f4;padding:1px 5px;border-radius:4px;color:var(--navy);}
+  .content pre code{background:none;padding:0;color:inherit;font-size:12px;}
+  .tbl{overflow-x:auto;margin:6px 0 16px;border:1px solid var(--line);border-radius:8px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:540px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 11px;font-weight:600;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;}
+  tbody td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;color:#2b3543;}
+  tbody tr:nth-child(even){background:var(--soft);}
+  tbody tr:last-child td{border-bottom:none;}
+  .site-footer{width:min(1000px,94vw);margin:26px auto 40px;text-align:center;font-size:13px;color:var(--muted);}
+  .site-footer .attrib a{color:var(--blue);font-weight:600;text-decoration:none;}
+  .site-footer .attrib a:hover{text-decoration:underline;}
+  .site-footer .gl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7a8694;margin-top:8px;}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="in">
+  <div class="brand"><span class="dot">📡</span><span class="nm">Macro Monitor</span></div>
+  <a class="back" href="index.html">← Back to Macro Monitor</a>
+</div></nav>
+<main class="page">
+  <div class="head">
+    <div class="kicker">Architecture</div>
+    <h1>Macro Monitoring Swarm — Architecture</h1>
+    <div class="sub">How the agent swarm is decomposed into domains, coordinated through a shared blackboard, scheduled, and tuned for signal over noise.</div>
+  </div>
+  <div class="content">
+<h2>Overview &amp; Verdict</h2>
+<p>This document defines how to decompose a swarm of agents that monitors the <strong>23 macro economic data releases</strong> that drive markets (CPI, PCE, PPI, NFP, JOLTS, ADP, Jobless Claims, GDP, Retail Sales, ISM PMI, FOMC, BoE/ECB, housing, sentiment surveys, trade, etc.).</p>
+<p><strong>Verdict:</strong> Use a <strong>3-tier hierarchy</strong>, not a flat one. Neither "one agent per report" (23+ agents → noise, cost, no cross-view) nor "one monolithic inflation agent" (too coarse) is right. The clean answer maps granularity onto three <em>different</em> platform primitives:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Hyperagent primitive</th>
+<th>Owns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Domain</strong> (e.g. Inflation)</td>
+<td>a <strong>named Agent</strong></td>
+<td>The analytical lens, prompt, tools, source skills</td>
+</tr>
+<tr>
+<td><strong>Report</strong> (e.g. CPI)</td>
+<td>a <strong>scheduled invocation</strong> on that agent</td>
+<td><em>Timing</em> — its own release-calendar trigger</td>
+</tr>
+<tr>
+<td><strong>Macro</strong> (whole picture)</td>
+<td>an <strong>Orchestrator agent</strong></td>
+<td>Cross-indicator synthesis &amp; regime-change alerts</td>
+</tr>
+</tbody>
+</table></div>
+<p>The middle row is the key unlock: <strong>per-report behaviour without per-report agents.</strong> CPI, PPI and PCE become three scheduled invocations on a single <em>Inflation Watch</em> agent.</p>
+<h2>Design Principle</h2>
+<p>Decompose along the axis of <strong>what varies independently</strong>:</p>
+<ul>
+<li><strong>Analytical lens varies by domain.</strong> How you read an inflation print (vs. consensus, core vs. headline, impact on the Fed path) is shared across CPI/PPI/PCE but differs from how you read a jobs print. → the <em>agent</em> (system prompt + tools) is the domain.</li>
+<li><strong>Timing varies by report.</strong> CPI drops ~mid-month, claims every Thursday, FOMC 8×/year. → the <em>scheduled invocation</em> (its trigger) is the report.</li>
+<li><strong>Synthesis is a distinct job.</strong> "What does the accumulation of this week's prints mean for the cycle?" is cross-domain and cannot live inside any single domain agent. → the <em>orchestrator</em> is the macro view.</li>
+</ul>
+<p>Keeping these on separate primitives means you can add a report (new invocation) without touching the domain agent, retune a domain's lens (edit one prompt) without touching schedules, and evolve the macro narrative (orchestrator) independently.</p>
+<h2>Topology</h2>
+<p><strong>~7 domain collectors + 1 orchestrator.</strong> (Trade Balance folds into Growth &amp; Activity — it feeds GDP net exports and would otherwise be a near-idle standalone agent. A 7th domain — <strong>Financial Conditions &amp; Markets</strong> — was added later to cover market-priced leading signals that none of the original six owned.)</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Domain agent</th>
+<th>Reports — each becomes a scheduled invocation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inflation Watch</strong></td>
+<td>CPI, PCE, PPI</td>
+</tr>
+<tr>
+<td><strong>Labor Watch</strong></td>
+<td>Non-Farm Payrolls, ADP, JOLTS, Jobless Claims, UK Labour Market</td>
+</tr>
+<tr>
+<td><strong>Growth &amp; Activity Watch</strong></td>
+<td>GDP, Retail Sales (+ Chicago Fed CARTS nowcast), ISM PMI (Mfg + Services), Industrial Production, Durable Goods, Trade Balance</td>
+</tr>
+<tr>
+<td><strong>Housing Watch</strong></td>
+<td>Building Permits &amp; Housing Starts, Existing &amp; New Home Sales</td>
+</tr>
+<tr>
+<td><strong>Sentiment &amp; Surveys Watch</strong></td>
+<td>UMich Sentiment, Conference Board Confidence, German Ifo</td>
+</tr>
+<tr>
+<td><strong>Central Banks &amp; Policy Watch</strong></td>
+<td>FOMC decision, FOMC minutes / Beige Book / speeches, BoE, ECB, Eurozone CPI &amp; GDP flash</td>
+</tr>
+<tr>
+<td><strong>Market Watch</strong> (Financial Conditions &amp; Markets)</td>
+<td>Treasury yield curve (10y–2y, 10y–3m), HY/IG credit spreads, Chicago Fed NFCI/ANFCI, SLOOS, market-implied Fed path (futures), breakevens (5y5y, 10y)</td>
+</tr>
+<tr>
+<td><strong>Macro Strategist</strong> (orchestrator)</td>
+<td>reads all seven domains; applies the Master Cross-Indicator table</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Classification rule (why Market Watch is its own domain):</strong> assign an indicator by what it <em>measures and leads</em>, not by its publisher. Market Watch owns <strong>market-priced</strong> financial-conditions data only — real-activity nowcasts stay in the real-economy domains (e.g. the Chicago Fed publishes both the NFCI → Market Watch <em>and</em> CARTS → Growth &amp; Activity). Financial conditions lead the real economy by ~6–18 months, making this the leading edge of the cross-indicator chain.</p>
+<p><strong>Axis note:</strong> Geography (US / UK / EU) is the alternative top-level split, but domain-first is better — the analytical playbook (leads/lags relationships) is organised by domain, not by country. Treat geography as a <em>tag/section within</em> each domain instead.</p>
+<h2>Why Not One Agent Per Report</h2>
+<ul>
+<li><strong>Idle sprawl &amp; maintenance.</strong> Most releases are <em>monthly</em>; 23 agents sit idle ~95% of the time but each is config + prompt + a backup folder to maintain.</li>
+<li><strong>No cross-view, which is where the value is.</strong> Regime changes almost never come from a single data point. Per-report agents are blind to each other, so the orchestrator ends up doing all the real analysis anyway — making the leaf agents thin wrappers.</li>
+<li><strong>Alert fatigue.</strong> 23 agents each pinging Slack = noise. A domain agent batches naturally: <em>"Inflation week: CPI hot, PPI cooling, PCE Friday."</em></li>
+<li><strong>Cost &amp; rate limits</strong> scale with agent count and redundant context.</li>
+</ul>
+<p><strong>The one exception — tier-1 movers.</strong> The highest-impact, precisely-timed releases (<strong>CPI, NFP, FOMC decision</strong>, arguably PCE) warrant a <em>dedicated invocation</em> fired at the exact release instant (e.g. 08:30 ET) for sub-minute turnaround + immediate alert. But that is still a scheduled invocation <em>on the domain agent</em>, not a separate agent.</p>
+<h2>Coordination — Blackboard Pattern</h2>
+<p>Do <strong>not</strong> wire agents to message each other directly (fragile, ordering-dependent, hard to debug). Coordinate through a <strong>shared blackboard = a project-scoped document</strong>, with one section per domain. Domain agents write; the orchestrator reads all and writes the synthesis section. State survives across runs and is human-visible.</p>
+<pre><code>        +------------ Macro Monitor blackboard (project doc) ------------+
+        |  Inflation  Labor  Growth  Housing  Sentiment  Policy  Markets |
+        +---^----^--------^--------^--------^----------^-------+---------+
+   write |    | write     |        |        |          |       | read all
+     +---+-++--+--+   +---+--+  +--+---+ +--+----+ +---+---+    v
+     |Infl ||Labor|   |Growth|  |House | |Sentmt | |Policy |  +-------------+
+     +-----++-----+   +------+  +------+ +-------+ +-------+  |MacroStrateg.|
+       (domain collectors: fetch release -&gt; digest -&gt; write) +------+------+
+                                                                    v alert
+                                                  Slack #hyper-asset-monitoring
+</code></pre>
+<ul>
+<li><strong>Fan-out (domain agents):</strong> on each report's trigger, pull the release from its <strong>official source link</strong>, capture print vs. consensus + prior, write a short structured digest into the domain's section (date, actual, consensus, surprise, one-line read).</li>
+<li><strong>Fan-in (orchestrator):</strong> reads every section and produces the unified narrative.</li>
+</ul>
+<p><strong>Blackboard schema (per domain section):</strong> a small table of <code>Report | Latest date | Actual | Consensus | Surprise | Read</code>, plus a free-text "current domain stance."</p>
+<h2>Orchestrator Logic</h2>
+<p>The <strong>Master Cross-Indicator Reference Table</strong> <em>is</em> the orchestrator's reasoning spec. It encodes, for each release: what it <strong>leads</strong>, what it <strong>lags</strong>, and its <strong>primary asset impact</strong>. The orchestrator's job:</p>
+<ol>
+<li>Read all domain sections from the blackboard.</li>
+<li>Sequence the latest prints along the leads/lags chain (e.g. ISM Prices Paid → PPI → CPI → PCE → Fed path).</li>
+<li>Detect <strong>alignment</strong> — multiple domains telling the same story (e.g. ISM Services &lt;50 + rising claims + falling JOLTS + soft retail sales = labour market turning).</li>
+<li>Emit a unified macro narrative and flag regime-change risk.</li>
+</ol>
+<p><strong>Orchestrator triggers:</strong> post-release synthesis (shortly after each tier-1 print), a daily macro wrap (e.g. 17:00 ET), and a weekly look-ahead (Sunday: the upcoming release calendar + what to watch).</p>
+<h2>Scheduling &amp; Cadence</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Reports</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Weekly</td>
+<td>Jobless Claims</td>
+<td>Thu 08:30 ET</td>
+</tr>
+<tr>
+<td>Monthly (fixed-ish)</td>
+<td>CPI, PPI, NFP, Retail Sales, JOLTS, IP, Durable Goods, sentiment surveys</td>
+<td>release-day invocation</td>
+</tr>
+<tr>
+<td>Quarterly</td>
+<td>GDP</td>
+<td>release-day</td>
+</tr>
+<tr>
+<td>8×/year (pre-scheduled)</td>
+<td>FOMC, BoE, ECB</td>
+<td>per published calendar</td>
+</tr>
+<tr>
+<td>Event / precise</td>
+<td>CPI, NFP, FOMC</td>
+<td>dedicated exact-time invocation + instant alert</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Don't hard-code dates.</strong> Release dates drift month to month. Give each domain agent a lightweight <strong>"calendar refresh"</strong> invocation (e.g. weekly) that reads the official release schedules and <strong>re-arms</strong> a near-term precise trigger, rather than baking fixed dates into a schedule.</p>
+<h2>Alerting Strategy (signal over noise)</h2>
+<p>Separate <strong>routine logging</strong> from <strong>alerts</strong>:</p>
+<ul>
+<li><strong>Domain agents → log, don't shout.</strong> Every release gets written to the blackboard regardless of outcome. No Slack ping for an in-line print.</li>
+<li><strong>Orchestrator → owns alerts.</strong> Fires to Slack only when: a print's <strong>surprise vs. consensus</strong> exceeds a per-report threshold, OR <strong>multiple domains align</strong> into a regime-change signal, OR a <strong>tier-1 event</strong> (CPI/NFP/FOMC) lands (always alert, with the read).</li>
+<li><strong>Alert payload:</strong> headline (report, actual vs. consensus, surprise), the cross-indicator implication, and the updated macro stance — not a raw data dump.</li>
+</ul>
+<p>This keeps the channel high-signal: domain noise stays in the doc; only "this matters" reaches Slack.</p>
+<h2>Mapping to Hyperagent Primitives</h2>
+<ul>
+<li><strong>Domain agent = named Agent.</strong> System prompt = the domain's analytical lens (how to read its prints). Tools = web fetch/search + source-fetch skills keyed to the official release URLs.</li>
+<li><strong>Report = scheduled invocation</strong> on the agent (its trigger + a prompt: <em>"pull latest {report}, compare to consensus, write digest to blackboard, alert only if surprise &gt; X"</em>).</li>
+<li><strong>Live mode</strong> can back the polling-style watches (checklist: <em>has the new release dropped?</em>).</li>
+<li><strong>Delivery:</strong> native Slack integration → the monitoring channel.</li>
+<li><strong>State/backup:</strong> each agent backs up its own configuration and skills to version control.</li>
+<li><strong>Blackboard:</strong> a project-scoped document shared across all swarm threads.</li>
+</ul>
+<h2>Recommended Build Sequence</h2>
+<ol>
+<li><strong>Create the blackboard</strong> — a project-scoped "Macro Monitor" doc with one section per domain + a synthesis section.</li>
+<li><strong>Build Inflation Watch end-to-end</strong> as the template: CPI/PPI/PCE invocations → digests to the blackboard → alert on surprise. Validate the full loop on one domain.</li>
+<li><strong>Clone the pattern</strong> to the other domains, swapping sources, prompts, and schedules.</li>
+<li><strong>Stand up the Macro Strategist</strong> orchestrator with the Master Cross-Indicator table as its spec and the three trigger types.</li>
+<li><strong>Tune alert thresholds</strong> per report to dial in signal vs. noise.</li>
+<li><strong>Wire backups</strong> and document each agent's config.</li>
+</ol>
+<p>Start narrow (one domain, working end-to-end) before fanning out — it de-risks the schedule/alert plumbing before you multiply it.</p>
+  </div>
+</main>
+<footer class="site-footer">
+  <p class="attrib">Service offered by <a href="https://atnode.ai" target="_blank" rel="noopener noreferrer">atnode.ai</a> using the awesome <a href="https://hyperagent.com" target="_blank" rel="noopener noreferrer">hyperagent platform</a>.</p>
+  <p class="gl">Internal monitoring summary — not investment advice.</p>
+</footer>
+</body>
+</html>
