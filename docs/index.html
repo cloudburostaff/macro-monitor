@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Monitor — Weekly Macro Briefings</title>
+<meta name="description" content="Automated macroeconomic surveillance: a weekly executive briefing on inflation, labour, growth, housing, sentiment, central-bank policy and financial conditions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f2a4a; --blue:#1f5fa8; --ink:#1a2230; --muted:#5b6776;
+    --line:#e2e7ee; --soft:#f4f6f9; --bg:#e7eaef; --cool:#1f7a5a;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg); color:var(--ink);
+    font-family:'Inter',-apple-system,system-ui,sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased; padding:0 0 60px;}
+  a{color:inherit;}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* top nav */
+  .nav{background:var(--navy); color:#fff;}
+  .nav .in{width:min(880px,94vw); margin:0 auto; padding:15px 0;
+    display:flex; align-items:center; justify-content:space-between;}
+  .nav .brand{display:flex; align-items:center; gap:11px;}
+  .nav .dot{width:30px;height:30px;border-radius:7px;background:#fff;color:var(--navy);
+    display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .nav .nm{font-weight:700;font-size:15px;letter-spacing:-.01em;}
+  .nav .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9fc0e6;letter-spacing:.08em;}
+
+  .page{width:min(880px,94vw); background:#fff; margin:30px auto 0;
+    padding:50px 64px 54px; border-top:4px solid var(--navy);
+    box-shadow:0 2px 26px rgba(15,42,74,.11);}
+  @media(max-width:640px){ .page{padding:36px 26px 44px;} }
+
+  .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--blue);}
+  h1{font-size:46px; font-weight:800; color:var(--navy); margin:12px 0 0; letter-spacing:-.02em;}
+  .lede{font-size:18px; color:var(--muted); font-weight:500; margin-top:12px; max-width:46ch;}
+  .overview{margin-top:26px; padding-top:24px; border-top:1px solid var(--line);
+    font-size:15px; color:#2b3543;}
+  .overview p{margin:0 0 13px;}
+  .overview p:last-child{margin-bottom:0;}
+  .overview b{color:var(--navy);}
+
+  .reports-head{display:flex; align-items:baseline; justify-content:space-between;
+    margin:40px 0 4px; padding-bottom:10px; border-bottom:2px solid var(--navy);}
+  .reports-head h2{margin:0; font-size:22px; font-weight:800; color:var(--navy); letter-spacing:-.01em;}
+  .reports-head .meta{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted);
+    letter-spacing:.04em;}
+
+  .report-list{display:flex; flex-direction:column;}
+  .report-row{display:flex; align-items:center; justify-content:space-between; gap:16px;
+    text-decoration:none; padding:18px 4px; border-bottom:1px solid var(--line);
+    transition:background .12s, padding .12s;}
+  .report-row:hover{background:var(--soft); padding-left:12px; padding-right:12px;}
+  .rr-left{display:flex; align-items:baseline; gap:14px; min-width:0;}
+  .rr-wk{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    color:#fff; background:var(--blue); border-radius:5px; padding:4px 9px; white-space:nowrap;}
+  .rr-title{font-size:15.5px; font-weight:600; color:var(--navy);
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .rr-right{display:flex; align-items:center; gap:18px; white-space:nowrap;}
+  .rr-date{font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums;}
+  .rr-cta{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; color:var(--blue);}
+  @media(max-width:560px){
+    .report-row{flex-direction:column; align-items:flex-start; gap:8px;}
+    .rr-title{white-space:normal;}
+  }
+
+  .foot{width:min(880px,94vw); margin:22px auto 0; font-size:11.5px; color:var(--muted);
+    line-height:1.5; text-align:center;}
+  .foot .gl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#7a8694;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="in">
+    <div class="brand"><span class="dot">📡</span><span class="nm">Macro Monitor</span></div>
+    <span class="tag">CROSS-ASSET SURVEILLANCE</span>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="kicker">Automated Macro Surveillance</div>
+  <h1>Macro Monitor</h1>
+  <div class="lede">A weekly, plain-English read on where the economy and policy are heading.</div>
+
+  <div class="overview">
+    <p>Macro Monitor is an automated macroeconomic surveillance service. A swarm of seven specialist agents continuously tracks the data that moves markets — inflation (CPI, PPI, PCE), the labour market (payrolls, jobless claims, JOLTS), growth and activity (GDP, ISM surveys, retail sales), housing, business and consumer sentiment, central-bank policy (Fed, ECB, BoE), and financial conditions. Each agent reads official releases at the primary source the moment they land and records a concise, verified digest.</p>
+    <p>A central <b>Macro Strategist</b> then synthesises every domain into one coherent read of the economic cycle — connecting the leads and lags between indicators, separating genuine signal from noise, and judging where the cycle and policy are heading. The result is a clear regime call, an explicit watch-list of what would confirm or deny a turn, and the week-ahead calendar.</p>
+    <p>Every Saturday that synthesis is published here as a five-minute executive briefing: plain business language, the numbers that matter, and the cross-asset implications. Past editions are archived below, so the evolving macro narrative can be followed week to week.</p>
+  </div>
+
+  <div class="reports-head">
+    <h2>Weekly Reports</h2>
+    <span class="meta">Newest first · updated Saturdays</span>
+  </div>
+
+  <div class="report-list">
+    <!-- REPORTS:INSERT -->
+    <a class="report-row" href="reports/2026-W24.html">
+      <div class="rr-left">
+        <span class="rr-wk">2026 · W24</span>
+        <span class="rr-title">Weekly Executive Briefing</span>
+      </div>
+      <div class="rr-right">
+        <span class="rr-date">Week ending 12 Jun 2026</span>
+        <span class="rr-cta">Read →</span>
+      </div>
+    </a>
+  </div>
+</main>
+
+<div class="foot">
+  <p>Published automatically every Saturday by the Macro Monitor swarm.</p>
+  <p class="gl">INTERNAL MONITORING SUMMARY — NOT INVESTMENT ADVICE.</p>
+</div>
+
+</body>
+</html>

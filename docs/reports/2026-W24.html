@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Monitor — Weekly Executive Briefing · W24 (w/e 12 Jun 2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy:#0f2a4a; --blue:#1f5fa8; --ink:#1a2230; --muted:#5b6776;
+    --line:#e2e7ee; --soft:#f4f6f9; --bg:#e7eaef;
+    --hot:#c0392b; --warm:#b87211; --cool:#1f7a5a;
+    --hot-bg:#fbeae8; --warm-bg:#f8f0e1; --cool-bg:#e8f3ee; --blue-bg:#eaf1f9;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg); color:var(--ink);
+    font-family:'Inter',-apple-system,system-ui,sans-serif; line-height:1.55;
+    -webkit-font-smoothing:antialiased; padding:0 0 64px;}
+  .num{font-variant-numeric:tabular-nums; font-feature-settings:"tnum";}
+
+  /* site nav */
+  .nav{background:var(--navy); color:#fff;}
+  .nav .in{width:min(880px,94vw); margin:0 auto; padding:14px 0;
+    display:flex; align-items:center; justify-content:space-between;}
+  .nav .brand{display:flex; align-items:center; gap:11px;}
+  .nav .dot{width:30px;height:30px;border-radius:7px;background:#fff;color:var(--navy);
+    display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .nav .nm{font-weight:700;font-size:15px;letter-spacing:-.01em;}
+  .nav a.back{color:#9fc0e6; text-decoration:none; font-family:'IBM Plex Mono',monospace;
+    font-size:12px; letter-spacing:.04em;}
+  .nav a.back:hover{color:#fff;}
+
+  .page{width:min(880px,94vw); background:#fff; margin:0 auto 30px;
+    padding:54px 64px 60px; box-shadow:0 2px 26px rgba(15,42,74,.11); position:relative;}
+  .page.first{margin-top:30px; border-top:4px solid var(--navy);}
+  .page::after{content:attr(data-page); position:absolute; bottom:22px; right:64px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; color:#9aa6b4;}
+  .footline{position:absolute; bottom:22px; left:64px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.04em; color:#9aa6b4;}
+  @media(max-width:640px){ .page{padding:40px 26px 56px;} .page::after,.footline{right:26px;left:26px;} }
+
+  .kicker{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--blue);}
+  h1,h2,h3{margin:0; line-height:1.15; letter-spacing:-.01em;}
+  p{margin:0 0 12px;}
+
+  .cover{min-height:74vh; display:flex; flex-direction:column;}
+  .cover .top{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+    padding-bottom:20px; border-bottom:1px solid var(--line);}
+  .brand2{display:flex; align-items:center; gap:11px;}
+  .brand2 .d{width:34px;height:34px;border-radius:7px;background:var(--navy);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;}
+  .brand2 .nm{font-weight:700; font-size:15px;}
+  .brand2 .sb{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:.06em;}
+  .cover .mid{flex:1; display:flex; flex-direction:column; justify-content:center; padding:48px 0;}
+  .cover h1{font-size:52px; font-weight:800; color:var(--navy); margin:14px 0 0;}
+  .cover .sub{font-size:20px; color:var(--muted); font-weight:500; margin-top:14px;}
+  .cover .we{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink); margin-top:28px; letter-spacing:.02em;}
+  .regimebar{margin-top:28px; background:var(--navy); color:#fff; border-radius:8px;
+    padding:18px 22px; display:flex; gap:14px; align-items:baseline; flex-wrap:wrap;}
+  .regimebar .lab{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color:#9fc0e6;}
+  .regimebar .txt{font-size:16px; font-weight:600;}
+  .metagrid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+    border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-top:26px;}
+  .metagrid div{background:#fff; padding:13px 15px;}
+  .metagrid .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted);}
+  .metagrid .v{font-size:13px; font-weight:600; margin-top:3px;}
+  @media(max-width:640px){ .cover h1{font-size:36px;} .metagrid{grid-template-columns:repeat(2,1fr);} }
+
+  .seclabel{font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--blue);
+    padding-bottom:9px; border-bottom:2px solid var(--navy); margin-bottom:18px;
+    display:flex; justify-content:space-between; align-items:baseline;}
+  .seclabel .ix{color:#aab4c1; font-weight:500;}
+
+  .callout{background:var(--soft); border-left:4px solid var(--blue);
+    border-radius:0 8px 8px 0; padding:18px 22px; margin:0 0 22px;}
+  .callout.lead{font-size:15.5px;}
+
+  .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:0 0 24px;}
+  .kpi{border:1px solid var(--line); border-radius:9px; padding:14px 16px; background:#fff;}
+  .kpi .k{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted);}
+  .kpi .v{font-size:25px; font-weight:800; color:var(--navy); margin-top:5px; letter-spacing:-.02em;}
+  .kpi .d{font-size:11.5px; color:var(--muted); margin-top:2px;}
+  .kpi .v.hot{color:var(--hot);} .kpi .v.cool{color:var(--cool);}
+  @media(max-width:640px){ .kpis{grid-template-columns:repeat(2,1fr);} }
+
+  table{width:100%; border-collapse:collapse; margin:4px 0 8px; font-size:13.5px;}
+  thead th{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.07em;
+    text-transform:uppercase; color:var(--muted); text-align:left; padding:8px 10px;
+    border-bottom:2px solid var(--navy);}
+  tbody td{padding:10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.dom{font-weight:700; color:var(--navy); white-space:nowrap;}
+  .pill{display:inline-block; font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px;
+    font-family:'IBM Plex Mono',monospace; letter-spacing:.02em; white-space:nowrap;}
+  .pill.hot{background:var(--hot-bg); color:var(--hot);}
+  .pill.warm{background:var(--warm-bg); color:var(--warm);}
+  .pill.cool{background:var(--cool-bg); color:var(--cool);}
+  .pill.grey{background:#eef1f4; color:#7a8694;}
+
+  .block{margin-bottom:17px;}
+  .block h3{font-size:16px; font-weight:700; color:var(--navy); margin-bottom:4px;}
+  .block p{font-size:14px; color:#2b3543;}
+
+  .chartcard{border:1px solid var(--line); border-radius:10px; padding:18px 20px 14px; margin:6px 0 8px; background:#fff;}
+  .chartcard .ct{font-size:13px; font-weight:700; color:var(--navy);}
+  .chartcard .cs{font-size:11.5px; color:var(--muted); margin-bottom:10px;}
+  .chartwrap{height:250px; position:relative;}
+  .cap{font-size:11px; color:var(--muted); margin-top:8px; font-style:italic;}
+
+  .two{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:640px){ .two{grid-template-columns:1fr;} }
+  .watch h3,.ahead h3{font-size:13px; font-family:'IBM Plex Mono',monospace; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--navy); margin-bottom:9px;}
+  .watch ul{margin:0; padding:0; list-style:none;}
+  .watch li{font-size:13px; padding:7px 0; border-bottom:1px dashed var(--line); color:#2b3543;}
+  .watch li:last-child{border-bottom:none;}
+  .watch li b{color:var(--navy);}
+  .tag{font-family:'IBM Plex Mono',monospace; font-size:10px; padding:2px 7px; border-radius:4px; margin-right:7px;}
+  .tag.h{background:var(--hot-bg); color:var(--hot);}
+  .tag.b{background:var(--cool-bg); color:var(--cool);}
+  .tag.l{background:var(--warm-bg); color:var(--warm);}
+  .cal{margin:0; padding:0; list-style:none;}
+  .cal li{display:flex; gap:11px; font-size:13px; padding:7px 0; border-bottom:1px dashed var(--line);}
+  .cal li:last-child{border-bottom:none;}
+  .cal .dt{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--blue);
+    font-weight:600; white-space:nowrap; min-width:62px;}
+  .cal .star{color:var(--hot);}
+
+  .opnote{background:#fbfaf4; border:1px solid #ece3c9; border-radius:9px; padding:15px 18px; margin-top:6px;}
+  .opnote h3{font-size:12px; font-family:'IBM Plex Mono',monospace; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--warm); margin-bottom:7px;}
+  .opnote p{font-size:13px; color:#3a4250; margin:0;}
+
+  .docfoot{margin-top:26px; padding-top:16px; border-top:1px solid var(--line);
+    font-size:11px; color:var(--muted); line-height:1.5;}
+  .docfoot .gl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7785;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="in">
+    <div class="brand"><span class="dot">📡</span><span class="nm">Macro Monitor</span></div>
+    <a class="back" href="../index.html">← All reports</a>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="page first cover" data-page="01">
+  <div class="top">
+    <div class="brand2">
+      <div class="d">📡</div>
+      <div><div class="nm">Macro Monitor</div><div class="sb">CROSS-ASSET SURVEILLANCE</div></div>
+    </div>
+    <div style="text-align:right;">
+      <div class="kicker">Internal Briefing</div>
+      <div class="sb" style="margin-top:4px;">No. 2026-W24</div>
+    </div>
+  </div>
+  <div class="mid">
+    <div class="kicker">Weekly Executive Briefing</div>
+    <h1>State of the<br>Macro Backdrop</h1>
+    <div class="sub">Inflation, labour, growth &amp; the policy outlook — at a glance for decision-makers.</div>
+    <div class="we">WEEK ENDING&nbsp;&nbsp;·&nbsp;&nbsp;FRIDAY, 12 JUNE 2026</div>
+    <div class="regimebar">
+      <span class="lab">Regime</span>
+      <span class="txt">Energy-driven stagflationary tilt — but core inflation &amp; wages stay contained.</span>
+    </div>
+    <div class="metagrid">
+      <div><div class="k">Prepared by</div><div class="v">Macro Strategist</div></div>
+      <div><div class="k">Data as of</div><div class="v">12 Jun 2026</div></div>
+      <div><div class="k">Classification</div><div class="v">Internal</div></div>
+      <div><div class="k">Distribution</div><div class="v">Public web</div></div>
+    </div>
+  </div>
+  <div class="footline">MACRO MONITOR · WEEKLY</div>
+</section>
+
+<!-- SUMMARY + KPIs + TABLE -->
+<section class="page" data-page="02">
+  <div class="seclabel"><span>Executive Summary</span><span class="ix">§ 1</span></div>
+  <div class="callout lead">
+    The U.S. economy enters mid-June in an energy-driven, mildly <b>stagflationary</b> posture — yet, for now, a relative-price shock rather than a self-reinforcing spiral. An oil spike (Iran / Strait of Hormuz) has lifted headline inflation to multi-year highs — <b>CPI +4.2% y/y, PPI +6.5% y/y</b> — while underlying core measures and wage growth keep easing, signalling demand is contained. The labour market is still firm on current data (<b>payrolls +172K</b>) even as its forward indicators soften. Abroad, the <b>ECB</b> delivered its first rate rise since 2023, confirming a hawkish policy turn. Attention now shifts to next week's <b>Federal Reserve</b> meeting — the debut of new Chair Kevin Warsh — the pivotal event for the rate path.
+  </div>
+
+  <div class="seclabel" style="margin-top:30px;"><span>At a Glance</span><span class="ix">key indicators</span></div>
+  <div class="kpis">
+    <div class="kpi"><div class="k">CPI · headline y/y</div><div class="v hot num">+4.2%</div><div class="d">Hottest since Apr '23</div></div>
+    <div class="kpi"><div class="k">Core CPI · m/m</div><div class="v cool num">+0.2%</div><div class="d">Softest this year</div></div>
+    <div class="kpi"><div class="k">Payrolls (NFP)</div><div class="v num">+172K</div><div class="d">Beat; U-rate 4.3%</div></div>
+    <div class="kpi"><div class="k">Fed Funds target</div><div class="v num">3.50–3.75%</div><div class="d">Hold expected 17 Jun</div></div>
+    <div class="kpi"><div class="k">ECB deposit rate</div><div class="v num">2.25%</div><div class="d">+25bp · 1st hike since '23</div></div>
+    <div class="kpi"><div class="k">30-yr mortgage</div><div class="v num">6.44%</div><div class="d">Backed up m/m</div></div>
+  </div>
+
+  <div class="seclabel" style="margin-top:26px;"><span>Domain Scorecard</span><span class="ix">§ 2</span></div>
+  <table>
+    <thead><tr><th>Domain</th><th>Headline signal</th><th style="text-align:right;">Read</th></tr></thead>
+    <tbody>
+      <tr><td class="dom">Inflation</td><td>CPI +4.2% y/y · core +0.2% m/m</td><td style="text-align:right;"><span class="pill warm">HOT HEADLINE / COOL CORE</span></td></tr>
+      <tr><td class="dom">Labour</td><td>NFP +172K · U-rate 4.3%</td><td style="text-align:right;"><span class="pill warm">FIRM, LEADS SOFTENING</span></td></tr>
+      <tr><td class="dom">Growth &amp; Activity</td><td>Q1 GDP +1.6% · ISM orders strong</td><td style="text-align:right;"><span class="pill cool">RE-FIRMING INTO Q2</span></td></tr>
+      <tr><td class="dom">Housing</td><td>Existing sales +3.2% · 30-yr 6.44%</td><td style="text-align:right;"><span class="pill grey">MIXED / RATE-SENSITIVE</span></td></tr>
+      <tr><td class="dom">Sentiment</td><td>UMich 48.9 · LR infl exp 3.4%</td><td style="text-align:right;"><span class="pill cool">REBOUNDING / DOVISH</span></td></tr>
+      <tr><td class="dom">Central Banks</td><td>ECB +25bp · Fed hold · FOMC 16–17 Jun</td><td style="text-align:right;"><span class="pill hot">HAWKISH PIVOT</span></td></tr>
+      <tr><td class="dom">Financial Conditions</td><td style="color:#9aa6b4;">— not yet reporting —</td><td style="text-align:right;"><span class="pill grey">PENDING GO-LIVE</span></td></tr>
+    </tbody>
+  </table>
+  <div class="footline">MACRO MONITOR · WEEKLY</div>
+</section>
+
+<!-- DETAIL + CHART -->
+<section class="page" data-page="03">
+  <div class="seclabel"><span>What the Data Is Saying</span><span class="ix">§ 3</span></div>
+  <div class="block">
+    <h3>Inflation — hot headline, cooling core</h3>
+    <p>The energy shock is inflating top-line prices across the board: <b>CPI +4.2% y/y</b> (energy +23.5% y/y) and <b>PPI +6.5% y/y</b>, the hottest since late 2022. Beneath the surface, the Fed-relevant gauges are easing — <b>core CPI +0.2% m/m</b> and core PPI +0.4% m/m, both below expectations and the softest in months. The read: a supply-led, commodity move — not broad demand pressure. Next test: <b>May PCE on 25 June</b>.</p>
+  </div>
+  <div class="chartcard">
+    <div class="ct">Headline runs hot; core stays tame</div>
+    <div class="cs">Consumer (CPI) &amp; producer (PPI) prices, % change year-on-year</div>
+    <div class="chartwrap"><canvas id="inflChart"></canvas></div>
+    <div class="cap">Energy lifts the headline figures, but core (ex food &amp; energy) sits well below — the signature of a price shock, not a spiral.</div>
+  </div>
+  <div class="block" style="margin-top:18px;">
+    <h3>Labour &amp; growth — firm today, softening at the edges</h3>
+    <p>Hiring is solid on current data: May payrolls beat at <b>+172K</b>, unemployment steady at <b>4.3%</b>, and wage growth contained (AHE +3.4% y/y, below inflation) — the equity-friendlier "strong jobs without hot wages" mix. But forward indicators are cooling together: jobless claims have drifted to <b>229K</b> (highest since February), the JOLTS hiring rate has slipped, and ISM employment is below 50 in both manufacturing and services. An early-warning alignment — not yet a confirmed turn. Growth, meanwhile, is re-firming after a soft Q1 (<b>GDP +1.6%</b>): ISM new orders are strong and factory output rebounded, though business capex has lost momentum.</p>
+  </div>
+  <div class="block">
+    <h3>Housing — mixed and rate-sensitive</h3>
+    <p>Lagging demand is firming (existing-home sales <b>+3.2%</b>, best pace since December, on improved affordability), but leading gauges remain soft and the 30-yr mortgage has backed up to <b>6.44%</b>. May permits and starts (16 Jun) are the next tell.</p>
+  </div>
+  <div class="block">
+    <h3>Policy — a hawkish pivot abroad, the Fed in focus</h3>
+    <p>The <b>ECB</b> raised rates +25bp on 11 June to a 2.25% deposit rate — its first hike since 2023 — lifting inflation forecasts even as it trimmed growth, a textbook stagflationary move. The <b>Fed</b> held at 3.50–3.75% in April, but its latest Beige Book shows energy costs broadening. Next week's <b>FOMC (16–17 Jun)</b> is Chair Warsh's debut and carries a fresh "dot plot"; a hold is near-certain, so the market's focus is his tone and the projected path. The <b>BoE</b> follows on 18 June.</p>
+  </div>
+  <div class="footline">MACRO MONITOR · WEEKLY</div>
+</section>
+
+<!-- OUTLOOK + STATUS -->
+<section class="page" data-page="04">
+  <div class="seclabel"><span>Outlook &amp; Operations</span><span class="ix">§ 4</span></div>
+  <div class="two">
+    <div class="callout watch" style="border-left-color:var(--navy);">
+      <h3>Regime Watch</h3>
+      <ul>
+        <li><span class="tag h">HAWKISH</span><b>Inflation gets sticky:</b> long-run price expectations re-accelerate, core PCE prints hot, or oil takes another leg up.</li>
+        <li><span class="tag b">BENIGN</span><b>Shock stays contained</b> <i>(currently winning)</i>: expectations re-anchored — UMich long-run already eased to 3.4% — core stays soft, oil stabilises.</li>
+        <li><span class="tag l">DOWNSIDE</span><b>Labour cracks:</b> the softening forward signals finally pull down a payrolls print — the dual-mandate squeeze.</li>
+      </ul>
+    </div>
+    <div class="callout ahead" style="border-left-color:var(--blue);">
+      <h3>The Week Ahead</h3>
+      <ul class="cal">
+        <li><span class="dt">Mon 16</span><span>Housing permits &amp; starts; retail sales; industrial output</span></li>
+        <li><span class="dt">Tue–Wed</span><span><span class="star">★</span> <b>FOMC</b> decision, projections &amp; dot plot — Warsh debut</span></li>
+        <li><span class="dt">Wed 17</span><span>UK CPI; final euro-area inflation</span></li>
+        <li><span class="dt">Thu 18</span><span>BoE decision; weekly jobless claims</span></li>
+        <li><span class="dt">Wed 25</span><span><span class="star">★</span> May PCE (core the marquee); Q1 GDP, 3rd est.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="opnote">
+    <h3>⚙ Monitoring Status</h3>
+    <p>Six of the swarm's seven surveillance domains are live and reporting; the seventh — <b>Financial Conditions &amp; Markets</b> — has not yet logged its first run, so market-priced signals (yield curve, credit spreads, Fed-path pricing) are not yet captured in this edition. Underlying data is current as of <b>Friday 12 June</b>; a refresh is due as next week's heavy release slate lands.</p>
+  </div>
+  <div class="docfoot">
+    <p><b>Bottom line for the desk:</b> Look through the ugly headlines. The inflation heat is energy; core and wages are contained, so the Fed can most likely hold and wait. The two things that change the story are next week's FOMC tone and any further slippage in the labour leads.</p>
+    <p class="gl">KEY — CPI: consumer prices · PPI: producer (wholesale) prices · PCE: Fed's preferred inflation gauge · NFP: non-farm payrolls · AHE: average hourly earnings · ISM/JOLTS: activity &amp; job-openings surveys · FOMC: Fed policy meeting · SEP/dots: Fed rate projections · bp: basis points.</p>
+    <p style="margin-top:8px;">Source: Macro Monitor blackboard (swarm-collected, primary-sourced). Prepared by the Macro Strategist orchestrator. <b>Internal monitoring summary — not investment advice.</b></p>
+  </div>
+  <div class="footline">MACRO MONITOR · WEEKLY</div>
+</section>
+
+<script>
+  const valueLabels = {
+    id:'valueLabels',
+    afterDatasetsDraw(chart){
+      const {ctx}=chart;
+      chart.data.datasets.forEach((ds,i)=>{
+        const meta=chart.getDatasetMeta(i);
+        meta.data.forEach((bar,idx)=>{
+          ctx.save(); ctx.fillStyle='#1a2230';
+          ctx.font='600 12px "IBM Plex Mono", monospace'; ctx.textAlign='center';
+          ctx.fillText('+'+ds.data[idx].toFixed(1)+'%', bar.x, bar.y-7); ctx.restore();
+        });
+      });
+    }
+  };
+  new Chart(document.getElementById('inflChart'),{
+    type:'bar',
+    data:{ labels:['CPI (consumer)','PPI (producer)'],
+      datasets:[
+        {label:'Headline', data:[4.2,6.5], backgroundColor:'#c0392b', borderRadius:4, barPercentage:.62, categoryPercentage:.6},
+        {label:'Core (ex food & energy)', data:[2.9,4.9], backgroundColor:'#1f5fa8', borderRadius:4, barPercentage:.62, categoryPercentage:.6}
+      ]},
+    options:{ responsive:true, maintainAspectRatio:false, layout:{padding:{top:18}},
+      plugins:{ legend:{position:'bottom', labels:{font:{family:'Inter',size:12}, color:'#5b6776', boxWidth:12, boxHeight:12, padding:16}}, tooltip:{enabled:false} },
+      scales:{ y:{beginAtZero:true, max:8, ticks:{callback:v=>v+'%', font:{family:'IBM Plex Mono',size:11}, color:'#9aa6b4'}, grid:{color:'#eef1f4'}, border:{display:false}},
+        x:{ticks:{font:{family:'Inter',size:12.5,weight:'600'}, color:'#1a2230'}, grid:{display:false}, border:{color:'#e2e7ee'}} }},
+    plugins:[valueLabels]
+  });
+</script>
+</body>
+</html>
