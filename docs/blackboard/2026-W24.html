@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macro Monitor — Detailed Blackboard · 2026 · W24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#0f2a4a;--blue:#1f5fa8;--ink:#1a2230;--muted:#5b6776;--line:#e2e7ee;--soft:#f4f6f9;--bg:#e7eaef;}
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,system-ui,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;padding:0 0 0;}
+  .nav{background:var(--navy);color:#fff;}
+  .nav .in{width:min(1000px,94vw);margin:0 auto;padding:14px 0;display:flex;align-items:center;justify-content:space-between;}
+  .nav .brand{display:flex;align-items:center;gap:11px;}
+  .nav .dot{width:30px;height:30px;border-radius:7px;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:16px;}
+  .nav .nm{font-weight:700;font-size:15px;letter-spacing:-.01em;}
+  .nav a.back{color:#9fc0e6;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;}
+  .nav a.back:hover{color:#fff;}
+  .page{width:min(1000px,94vw);background:#fff;margin:30px auto 0;padding:48px 60px 52px;
+    border-top:4px solid var(--navy);box-shadow:0 2px 26px rgba(15,42,74,.11);}
+  @media(max-width:640px){.page{padding:32px 22px 40px;}}
+  .kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);}
+  .head h1{font-size:36px;font-weight:800;color:var(--navy);margin:10px 0 0;letter-spacing:-.02em;}
+  .head .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);margin-top:12px;letter-spacing:.02em;}
+  .head .lead{margin-top:14px;font-size:15px;color:#2b3543;}
+  .head .lead a{color:var(--blue);font-weight:600;text-decoration:none;}
+  .head{padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+  .content h2{font-size:22px;font-weight:800;color:var(--navy);letter-spacing:-.01em;
+    margin:34px 0 6px;padding-bottom:8px;border-bottom:2px solid var(--navy);}
+  .content h2:first-of-type{margin-top:18px;}
+  .content p{font-size:14px;color:#2b3543;margin:0 0 12px;}
+  .content a{color:var(--blue);}
+  .content strong{color:var(--ink);}
+  .content blockquote{background:#fbfaf4;border:1px solid #ece3c9;border-left:4px solid #b87211;
+    border-radius:0 8px 8px 0;padding:12px 18px;margin:0 0 14px;font-size:13px;color:#3a4250;}
+  .content ul{margin:0 0 14px;padding-left:20px;}
+  .content li{font-size:13.5px;color:#2b3543;margin:4px 0;}
+  .tbl{overflow-x:auto;margin:6px 0 16px;border:1px solid var(--line);border-radius:8px;}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px;}
+  thead th{background:var(--navy);color:#fff;text-align:left;padding:9px 11px;font-weight:600;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;}
+  tbody td{padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top;color:#2b3543;}
+  tbody tr:nth-child(even){background:var(--soft);}
+  tbody tr:last-child td{border-bottom:none;}
+  .site-footer{width:min(1000px,94vw);margin:26px auto 40px;text-align:center;font-size:13px;color:var(--muted);}
+  .site-footer .attrib a{color:var(--blue);font-weight:600;text-decoration:none;}
+  .site-footer .attrib a:hover{text-decoration:underline;}
+  .site-footer .gl{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7a8694;margin-top:8px;}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="in">
+  <div class="brand"><span class="dot">📡</span><span class="nm">Macro Monitor</span></div>
+  <a class="back" href="../index.html">← All reports</a>
+</div></nav>
+<main class="page">
+  <div class="head">
+    <div class="kicker">Detailed Blackboard</div>
+    <h1>Weekly Detailed Blackboard</h1>
+    <div class="meta">Week ending 12 June 2026 &nbsp;·&nbsp; DATA SNAPSHOT AS OF 12 Jun 2026</div>
+    <p class="lead">The full swarm data snapshot — every domain's release tables, current stance and the cross-indicator synthesis — that served as the source for the <a href="../reports/2026-W24.html">W24 business report →</a></p>
+  </div>
+  <div class="content">
+<h2>How this doc works</h2>
+<p>This is the <strong>blackboard</strong> for the macro-monitoring swarm. Domain agents write their latest release digests into their own section — one row per release in the schema table: <code>Report | Latest date | Actual | Consensus | Surprise | Read</code>. They also keep a one-line <strong>Current stance</strong>. The Macro Strategist orchestrator reads every domain section and writes the cross-indicator synthesis into <em>Macro Synthesis</em>. Routine prints stay in this doc; only material surprises / regime-change signals are escalated to Slack.</p>
+<h2>Inflation</h2>
+<p><strong>Tracks:</strong> CPI, PCE, PPI · <strong>Agent:</strong> Inflation Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Latest date</th>
+<th>Actual</th>
+<th>Consensus</th>
+<th>Surprise</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPI</strong></td>
+<td>May 2026 (rel. Jun 10)</td>
+<td>Headline <strong>+0.5% m/m</strong> / <strong>+4.2% y/y</strong>; Core <strong>+0.2% m/m</strong> / <strong>+2.9% y/y</strong> · energy +3.9% m/m / +23.5% y/y, food +0.2% m/m</td>
+<td>Headline +0.5% / +4.2%; Core +0.3% / +2.9%</td>
+<td>Headline in line; <strong>core −0.1pp m/m (cooler)</strong></td>
+<td>Core disinflation intact — core m/m cooled to 0.2% (vs 0.3% exp), softest this year → mildly <strong>dovish</strong>. But headline is hottest since Apr '23 (+4.2% y/y) on a <strong>+23.5% y/y energy shock</strong> (Iran; energy &gt;60% of the m/m gain). Fed likely looks through energy but stays cautious into FOMC (Jun 16–17).</td>
+</tr>
+<tr>
+<td><strong>PPI</strong></td>
+<td>May 2026 (rel. Jun 11)</td>
+<td>Final demand <strong>+1.1% m/m</strong> / <strong>+6.5% y/y</strong> (hottest y/y since Nov '22); Core ex food &amp; energy <strong>+0.4% m/m</strong> / <strong>+4.9% y/y</strong> · energy <strong>+10.7% m/m</strong> (gasoline +23.4%), trade margins −1.1%</td>
+<td>Headline +0.7% m/m; Core ex-F&amp;E +0.5% m/m</td>
+<td><strong>Headline +0.4pp HOTTER</strong>; <strong>core ex-F&amp;E −0.1pp cooler</strong></td>
+<td>Same split as CPI — the <strong>energy shock inflates headline</strong> (PPI leads CPI 1–3 mo) while the <strong>Fed-relevant core ex-F&amp;E cooled to +0.4%</strong>. Hawkish wrinkle for PCE: <strong>portfolio-management prices +4.8%</strong> plus firm airfares/freight feed <strong>core PCE (Jun 25)</strong>.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> <strong>Divergence confirmed by the pipeline</strong> — PPI corroborates CPI on both legs: <strong>headline reaccelerating on the energy shock</strong> (PPI +6.5% y/y; CPI +4.2% y/y) while <strong>underlying core eases</strong> (PPI core ex-F&amp;E +0.4% m/m; CPI core +0.2% m/m). Disinflation toward 2% intact beneath an Iran-driven energy distortion now visible across CPI <em>and</em> PPI. Watch the PCE-feeding PPI components for mild upside risk to core PCE on Jun 25. <strong>Next inflation print: May PCE — Wed Jun 25.</strong> FOMC Jun 16–17.</p>
+<p><strong>Sources:</strong> <a href="https://www.bls.gov/news.release/cpi.nr0.htm" target="_blank" rel="noopener noreferrer">BLS CPI Summary — May 2026</a> · <a href="https://www.bls.gov/news.release/ppi.nr0.htm" target="_blank" rel="noopener noreferrer">BLS PPI Summary — May 2026</a></p>
+<p><em>Last checked: 2026-06-12 11:06 ET — no new release. Next: May PCE Jun 25; CPI Jul 14; PPI Jul 15.</em></p>
+<h2>Labor</h2>
+<p><strong>Tracks:</strong> Non-Farm Payrolls, ADP, JOLTS, Jobless Claims, UK Labour Market · <strong>Agent:</strong> Labor Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Latest date</th>
+<th>Actual</th>
+<th>Consensus</th>
+<th>Surprise</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Non-Farm Payrolls</strong></td>
+<td>May 2026 (rel. Jun 5)</td>
+<td><strong>+172K</strong> jobs; unemployment <strong>4.3%</strong> (unch); AHE <strong>+0.3% m/m / +3.4% y/y</strong>; <strong>revisions: Mar +29K, Apr +64K (+93K combined)</strong></td>
+<td>+80K; 4.3%; +0.3% / +3.4%</td>
+<td><strong>Big beat (+92K)</strong> + strong upward revisions</td>
+<td>Firm coincident print. Wages <strong>in line, not hot</strong> (3.4% y/y, below ~3.8% inflation) → strong jobs without a wage flare, but trims near-term Fed-cut odds.</td>
+</tr>
+<tr>
+<td><strong>ADP</strong></td>
+<td>May 2026 (rel. Jun 3)</td>
+<td><strong>+122K</strong> private (strongest since Jan '25); pay +4.4% y/y stayers; broad-based (8 of 10 sectors)</td>
+<td>~+110K</td>
+<td><strong>Beat (~+12K)</strong></td>
+<td>Corroborates NFP's direction — firm and broadening.</td>
+</tr>
+<tr>
+<td><strong>JOLTS</strong></td>
+<td>Apr 2026 (rel. Jun 2)</td>
+<td>openings <strong>7.6M (+731K)</strong>, rate 4.6%; hires <strong>5.1M (−419K)</strong>, rate 3.2% (from 3.5%); quits 3.0M (steady); layoffs near record-low</td>
+<td>6.8M openings</td>
+<td><strong>Big beat on openings</strong> — but hiring fell sharply</td>
+<td>Textbook <strong>"low-hire, low-fire."</strong> Quits steady → contained wage pressure.</td>
+</tr>
+<tr>
+<td><strong>Jobless Claims</strong></td>
+<td>wk ending Jun 6 (rel. Jun 11)</td>
+<td>initial <strong>229K</strong> (+4K); 4-wk avg <strong>219.0K</strong> (+4.25K); continuing <strong>1.795M</strong></td>
+<td>~225–230K (unconfirmed)</td>
+<td>Modest rise; <strong>initial claims highest since February</strong></td>
+<td>Highest-frequency labour signal; <strong>leads NFP.</strong> Gentle upward drift (209K→229K over 4 wks) = <strong>early softening at the leading edge.</strong> Watch item — not yet a turn.</td>
+</tr>
+<tr>
+<td><strong>UK Labour Market</strong></td>
+<td>May 2026 (rel. 19 May)</td>
+<td>unemployment <strong>5.0%</strong> (+0.5pp y/y); payrolled employees <strong>−210K y/y</strong>; regular pay +3.4% y/y; vacancies <strong>705K (lowest since 2021)</strong></td>
+<td>n/a</td>
+<td>Clear <strong>deterioration</strong></td>
+<td>UK softening materially (diverging from firmer US). Cooling wages + falling payrolls support a <strong>BoE easing bias.</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> <strong>US — firm coincident data, softening leading edge.</strong> May NFP a big beat (<strong>+172K</strong>, +93K revisions, unemployment steady 4.3%) and ADP +122K confirm hiring still solid — but forward signals cooling: <strong>jobless claims drifting up (229K)</strong> and <strong>JOLTS hiring rate falling (3.2%)</strong>, quits steady → wage pressure contained. <strong>Not yet a confirmed labour-market turn.</strong> <strong>UK diverging — clearly softening</strong>, supporting a BoE easing bias. <strong>Next:</strong> UK + weekly Claims Jun 18, May JOLTS Jun 30, June ADP Jul 1, June NFP Jul 2.</p>
+<p><strong>Sources:</strong> <a href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" rel="noopener noreferrer">BLS Employment Situation</a> · <a href="https://www.bls.gov/news.release/jolts.nr0.htm" target="_blank" rel="noopener noreferrer">BLS JOLTS</a> · <a href="https://www.dol.gov/ui/data.pdf" target="_blank" rel="noopener noreferrer">DOL UI Weekly Claims</a></p>
+<p><em>Last checked: 2026-06-12 11:00 ET — no new release. Data-quality flag open: UK youth-unemployment figure to reconcile at Jun 18 ONS release.</em></p>
+<h2>Growth &amp; Activity</h2>
+<p><strong>Tracks:</strong> GDP, Retail Sales (+ CARTS nowcast), ISM PMI (Mfg + Services), Industrial Production, Durable Goods, Trade Balance · <strong>Agent:</strong> Growth &amp; Activity Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Latest date</th>
+<th>Actual</th>
+<th>Consensus</th>
+<th>Surprise</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ISM Manufacturing PMI</strong></td>
+<td>May 2026 (rel. Jun 1)</td>
+<td><strong>54.0%</strong> (+1.3pp), highest since May '22 · New Orders <strong>56.8</strong> · Prices Paid <strong>82.1</strong> · Employment <strong>48.6</strong> (&lt;50)</td>
+<td>~52.6–53.0</td>
+<td><strong>Beat</strong></td>
+<td>Factory expansion at a 4-yr high; <strong>New Orders strong → GDP-supportive.</strong> Prices Paid elevated; Employment &lt;50 = soft NFP lead.</td>
+</tr>
+<tr>
+<td><strong>ISM Services PMI</strong></td>
+<td>May 2026 (rel. Jun 3)</td>
+<td><strong>54.5%</strong> (+0.9pp), 23rd straight expansion · New Orders <strong>57.3</strong> · Prices <strong>71.3</strong> (highest since Aug '22) · Employment <strong>47.9</strong> (&lt;50)</td>
+<td>53.7</td>
+<td><strong>Beat</strong></td>
+<td>Services demand reaccelerating; Prices at ~4-yr high; Employment &lt;50 = labor caution.</td>
+</tr>
+<tr>
+<td><strong>Industrial Production</strong></td>
+<td>Apr 2026 (rel. May 15)</td>
+<td><strong>+0.7% m/m</strong>, +1.4% y/y · Cap-U <strong>76.1%</strong></td>
+<td>unconfirmed</td>
+<td><strong>Beat (rebound)</strong></td>
+<td>Output rebounded broadly; capacity slack remains. May print ~Jun 17.</td>
+</tr>
+<tr>
+<td><strong>Retail Sales (Advance)</strong></td>
+<td>Apr 2026 (rel. May 14)</td>
+<td>Headline <strong>+0.5% m/m</strong> · <strong>Control Group +0.5%</strong> (4th straight gain)</td>
+<td>Hdln +0.5% / Ctrl +0.4%</td>
+<td>Ctrl <strong>beat</strong></td>
+<td>Consumer resilient; Control Group (feeds GDP) solid. Nominal gain flattered by gasoline.</td>
+</tr>
+<tr>
+<td><strong>Durable Goods</strong></td>
+<td>Apr 2026 (rel. May 28)</td>
+<td>New orders <strong>+7.9% m/m</strong> · <strong>core capex (nondef ex-air) −1.1%</strong></td>
+<td>Hdln +3.5%</td>
+<td>Hdln big beat; <strong>core capex soft (miss)</strong></td>
+<td>Headline aircraft-driven. Signal is <strong>soft core capex → business investment lost momentum.</strong></td>
+</tr>
+<tr>
+<td><strong>Trade Balance</strong></td>
+<td>Apr 2026 (rel. Jun 9)</td>
+<td>Deficit <strong>−$55.9B</strong> (narrowed) · exports <strong>$327.1B</strong> (record)</td>
+<td>−$56.1B</td>
+<td><strong>Beat</strong></td>
+<td>Narrower net-export gap = mild GDP positive.</td>
+</tr>
+<tr>
+<td><strong>GDP (2nd est)</strong></td>
+<td>Q1 2026 (rel. May 28)</td>
+<td>Real GDP <strong>+1.6%</strong> q/q ann. — <strong>revised down 0.4pp</strong></td>
+<td>~2.0% (unconfirmed)</td>
+<td><strong>Downward revision</strong></td>
+<td>Soft start to 2026; sets the bar Q2 must beat. 3rd est Jun 25.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> <strong>Growth re-firming after a soft Q1 — watch the splits.</strong> Soft start (Q1 GDP +1.6%, core capex −1.1%), but timely leads point to <strong>Q2 re-acceleration</strong>: ISM New Orders strong in <strong>both</strong> surveys, IP rebounded, Retail control group solid. Two cross-domain flags: <strong>(1)</strong> ISM Prices Paid at multi-year highs in both (82.1 / 71.3) corroborates the energy-inflation pipeline; <strong>(2)</strong> ISM Employment contracting in both (48.6 / 47.9) is a soft NFP lead. <strong>Next:</strong> May Retail Sales &amp; IP ~Jun 17, GDP Q1 3rd est Jun 25.</p>
+<p><strong>Sources:</strong> <a href="https://www.prnewswire.com/news-releases/manufacturing-pmi-at-54-may-2026-ism-manufacturing-pmi-report-302786165.html" target="_blank" rel="noopener noreferrer">ISM Mfg PMI</a> · <a href="https://www.bea.gov/news/2026/gdp-second-estimate-and-corporate-profits-1st-quarter-2026" target="_blank" rel="noopener noreferrer">BEA GDP</a></p>
+<p><em>Last checked: 2026-06-12 11:01 ET — no new release. Next: May Retail Sales &amp; May IP Jun 17 (8:30 ET).</em></p>
+<h2>Housing</h2>
+<p><strong>Tracks:</strong> Building Permits &amp; Housing Starts, Existing &amp; New Home Sales · <strong>Agent:</strong> Housing Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Latest date</th>
+<th>Actual</th>
+<th>Consensus</th>
+<th>Surprise</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Building Permits</td>
+<td>Apr 2026 (rel. ~May 21)</td>
+<td>1.442M SAAR, +5.8% m/m</td>
+<td>1.38M</td>
+<td><strong>Beat</strong></td>
+<td>Gain was multifamily (+21.8%); single-family permits fell −2.6%.</td>
+</tr>
+<tr>
+<td>Housing Starts</td>
+<td>Apr 2026 (rel. ~May 21)</td>
+<td>1.465M SAAR, −2.8% m/m</td>
+<td>1.41M</td>
+<td><strong>Beat (fell less than feared)</strong></td>
+<td>Single-family starts −9.0%; strength all multifamily. Cautious beneath headline.</td>
+</tr>
+<tr>
+<td>Existing Home Sales</td>
+<td>Apr 2026 (rel. ~May 11)</td>
+<td>4.02M SAAR, +0.2% m/m</td>
+<td>~4.0M</td>
+<td>In line</td>
+<td>Lagging closings flat at a low pace; median $417.7k.</td>
+</tr>
+<tr>
+<td>New Home Sales</td>
+<td>Apr 2026 (rel. May 28)</td>
+<td>622k SAAR, −6.2% m/m, −11.3% y/y</td>
+<td>670k</td>
+<td><strong>Miss (−48k)</strong></td>
+<td>Leading signings gauge weak; 9.4 mo supply. The cautionary print.</td>
+</tr>
+<tr>
+<td><strong>Existing Home Sales</strong></td>
+<td><strong>May 2026 (rel. Jun 9)</strong></td>
+<td><strong>4.17M SAAR, +3.2% m/m</strong>, highest since Dec; median <strong>$429.3k</strong> (record); 4.5 mo supply; 30-yr 6.44%</td>
+<td>4.07M</td>
+<td><strong>Beat (+100k)</strong></td>
+<td>Lagging closings <strong>beat</strong> at the year's best pace, affordability-driven. But EHS <strong>lags</strong>; with the 30-yr back to 6.44% and New Home Sales soft, durability is the question.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> <em>Lagging demand firming; leading signals still the watch.</em> May EHS beat (4.17M, +3.2%, highest since December), affordability-driven, inventory loosening to a 10-month high. But it lags; leading gauges remain softer (Apr New Home Sales miss; single-family permits/starts weak). With the 30-yr back to <strong>6.44%</strong>, the question is whether momentum carries into signings. Net: mildly <strong>constructive</strong> on the closings beat. <strong>Next:</strong> May Building Permits &amp; Housing Starts (Jun 16), May New Home Sales (Jun 24).</p>
+<p><strong>Sources:</strong> <a href="https://www.nar.realtor/press-releases/nar-existing-home-sales-report-shows-3-2-increase-in-may" target="_blank" rel="noopener noreferrer">NAR Existing-Home Sales</a> · <a href="https://www.census.gov/construction/nrc/index.html" target="_blank" rel="noopener noreferrer">Census New Residential Construction</a></p>
+<p><em>Last checked: 2026-06-12 11:01 ET — no new release. Next: May Building Permits &amp; Housing Starts — Mon Jun 16 (8:30 ET), the leading-gauge tell.</em></p>
+<h2>Sentiment &amp; Surveys</h2>
+<p><strong>Tracks:</strong> UMich Consumer Sentiment, Conference Board Confidence, German Ifo · <strong>Agent:</strong> Sentiment &amp; Surveys Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Latest date</th>
+<th>Actual</th>
+<th>Consensus</th>
+<th>Surprise</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UMich Consumer Sentiment</strong></td>
+<td><strong>June 2026 prelim (rel. Jun 12)</strong></td>
+<td>Headline <strong>48.9</strong> (May 44.8 record low), <strong>+9% m/m</strong>; <strong>1-yr infl exp 4.6%</strong> (4.8%), <strong>5–10yr infl exp 3.4%</strong> (3.9%)</td>
+<td>~46.0–46.1</td>
+<td><strong>Beat ~+2.9</strong>; <strong>5–10yr infl exp −0.5pp (de-anchoring RETRACED → dovish)</strong></td>
+<td>Sharp rebound off May's record low on gasoline relief. Crucially the <strong>Fed-anchor signal reversed — long-run inflation expectations fell 3.9%→3.4%</strong>, removing the biggest hawkish-tail catalyst into FOMC → <strong>dovish-leaning.</strong> Still 2nd-lowest since the 1970s.</td>
+</tr>
+<tr>
+<td><strong>UMich (May final)</strong></td>
+<td>May 2026 (rel. ~May 30)</td>
+<td>Headline <strong>44.8</strong> (record low); <strong>5–10yr infl exp 3.9%</strong></td>
+<td>n.a.</td>
+<td><strong>Record low</strong>; 5–10yr +0.4pp (hawkish)</td>
+<td>All-time-low sentiment on the Iran/energy shock; the prior month's hawkish anchor signal.</td>
+</tr>
+<tr>
+<td><strong>Conference Board Confidence</strong></td>
+<td>May 2026 (rel. ~May 26)</td>
+<td>Index <strong>93.1</strong> (−0.7); <strong>Jobs differential +6.9%</strong></td>
+<td>92.0</td>
+<td><strong>Beat +1.1</strong></td>
+<td>More resilient than UMich. Labor differential narrowed to +6.9% (weakest since 2021) — early softening tell.</td>
+</tr>
+<tr>
+<td><strong>German Ifo Business Climate</strong></td>
+<td>May 2026 (rel. ~May 22)</td>
+<td>Climate <strong>84.9</strong> (Apr 84.5)</td>
+<td>84.2</td>
+<td><strong>Beat +0.7</strong></td>
+<td>Modest rebound off April's low; stabilizing but fragile → mildly constructive for EUR.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> <strong>De-anchoring risk retraced — dovish-leaning into FOMC.</strong> UMich June preliminary rebounded to <strong>48.9</strong> (from May's record-low 44.8), and — most important — <strong>long-run (5–10yr) inflation expectations fell back 3.9%→3.4%</strong>, unwinding May's de-anchoring spike. This is the benign "energy-only, contained-core" outcome — it <strong>removes the single biggest hawkish-tail catalyst</strong> ahead of Warsh's debut FOMC. Caveats: sentiment still 2nd-lowest since the 1970s; 1-yr expectations still elevated (4.6%). <strong>Next:</strong> German Ifo June ~Jun 24, UMich June final Jun 26, CB Confidence June ~Jun 30.</p>
+<p><strong>Sources:</strong> <a href="https://www.sca.isr.umich.edu/" target="_blank" rel="noopener noreferrer">U. Michigan Surveys of Consumers</a> · <a href="https://www.conference-board.org/topics/consumer-confidence/" target="_blank" rel="noopener noreferrer">Conference Board</a></p>
+<p><em>Last checked: 2026-06-12 11:06 ET — logged UMich June prelim. Slack alert posted.</em></p>
+<h2>Central Banks &amp; Policy</h2>
+<p><strong>Tracks:</strong> FOMC, Beige Book / speeches, BoE, ECB, Eurozone CPI &amp; GDP flash · <strong>Agent:</strong> Central Banks &amp; Policy Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Report</th>
+<th>Latest date</th>
+<th>Actual</th>
+<th>Consensus</th>
+<th>Surprise</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ECB decision</strong></td>
+<td><strong>Jun 11, 2026</strong></td>
+<td><strong>+25bp HIKE — deposit facility 2.25%</strong>, eff. Jun 17; <strong>first hike since 2023</strong>. Projections revised up: HICP <strong>3.0% '26</strong>; growth trimmed to <strong>0.8% '26</strong></td>
+<td>+25bp (priced ~100%)</td>
+<td><strong>In line on the number; hawkish action + upgraded inflation path</strong></td>
+<td>Iran energy shock forces the ECB to lean against broadening inflation despite a Q1 contraction — a <strong>stagflationary hike.</strong> <strong>EUR &amp; euro-area yields biased up.</strong> Next: Jul 23.</td>
+</tr>
+<tr>
+<td><strong>Eurozone HICP flash</strong></td>
+<td>May 2026 (rel. Jun 2)</td>
+<td>Headline <strong>+3.2% y/y</strong> (from 3.0%); <strong>core 2.5%</strong></td>
+<td>~3.2%</td>
+<td><strong>Hot / broadening</strong></td>
+<td>The direct trigger for the ECB hike. Final May HICP Jun 17.</td>
+</tr>
+<tr>
+<td><strong>Eurozone GDP</strong></td>
+<td>Q1 2026 (final, rel. Jun 5)</td>
+<td><strong>−0.2% q/q</strong> (revised down); <strong>first contraction since Q4 2022</strong></td>
+<td>+0.1%</td>
+<td><strong>Downside revision</strong></td>
+<td>Confirms the stagflation backdrop the ECB is hiking into.</td>
+</tr>
+<tr>
+<td><strong>Fed Beige Book</strong></td>
+<td>Jun 3, 2026</td>
+<td>Activity slight-to-moderate in 10 of 12 districts; <strong>prices rose moderate-to-strong</strong>, energy-driven</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Hawkish-leaning backdrop into the Jun 16–17 FOMC.</td>
+</tr>
+<tr>
+<td><strong>FOMC decision</strong></td>
+<td>Apr 29, 2026</td>
+<td><strong>Held 3.50–3.75%</strong>; easing bias; split committee — Powell's final meeting</td>
+<td>Hold</td>
+<td>In line; split</td>
+<td><strong>Kevin Warsh sworn in as Fed Chair May 22</strong> → <strong>Jun 16–17 is Warsh's first meeting, with a fresh SEP / dot plot</strong> — the pivotal event.</td>
+</tr>
+<tr>
+<td><strong>BoE decision</strong></td>
+<td>Apr 30, 2026</td>
+<td><strong>Held Bank Rate 3.75%</strong>, vote <strong>8-1</strong> (one for +25bp)</td>
+<td>Hold</td>
+<td><strong>Hawkish dissent</strong></td>
+<td>Next <strong>Jun 18</strong> (May UK CPI Jun 17); hold expected with a hawkish tilt.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> <strong>Hawkish pivot underway — the Iran energy shock is pushing central banks to lean against inflation even as growth softens (stagflationary tilt).</strong> The <strong>ECB delivered the regime signal Jun 11: its first hike since 2023</strong> (+25bp, deposit 2.25%), inflation forecasts up / growth down. The <strong>Fed held 3.50–3.75%</strong> but the Beige Book shows energy-driven prices accelerating into <strong>Warsh's debut FOMC (Jun 16–17)</strong> with a <strong>fresh dot plot.</strong> <strong>BoE held 3.75%</strong> with a hawkish 8-1 split ahead of <strong>Jun 18.</strong> Read: DM rate paths re-pricing higher — <strong>firmer yields/USD/EUR, equities vulnerable, gold capped.</strong> <strong>Next:</strong> FOMC Jun 16–17, UK CPI Jun 17, BoE Jun 18, ECB Jul 23.</p>
+<p><strong>Sources:</strong> <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html" target="_blank" rel="noopener noreferrer">ECB key rates</a> · <a href="https://www.federalreserve.gov/monetarypolicy/publications/beige-book-default.htm" target="_blank" rel="noopener noreferrer">Fed Beige Book</a> · <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener noreferrer">FOMC calendars</a></p>
+<p><em>Last checked: 2026-06-12 14:30 ET — no new release. FOMC in pre-meeting blackout; decision + SEP/dots due Jun 17.</em></p>
+<h2>Financial Conditions &amp; Markets</h2>
+<p><strong>Tracks:</strong> Yield curve (10y–2y, 10y–3m), Credit spreads (HY/IG OAS), Chicago Fed NFCI/ANFCI, SLOOS, Fed-path (futures), Breakevens · <strong>Agent:</strong> Market Watch</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Latest date</th>
+<th>Level</th>
+<th>What it signals</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>(awaiting first run)</em></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Current stance:</strong> — <em>(set by Market Watch each run)</em></p>
+<p><em>Last checked: — (domain not yet live; orchestrator flags &gt;36h as STALE)</em></p>
+<h2>3rd-Party Analysis (external)</h2>
+<blockquote>
+<p><strong>EXTERNAL / 3RD-PARTY ANALYSIS — not swarm-collected data and not orchestrator synthesis.</strong> Logged for reference only; figures are the author's and have not been independently re-verified at source.</p>
+</blockquote>
+<p><strong>Topic:</strong> May 2026 CPI (rel. Jun 10) + PPI (rel. Jun 11).</p>
+<p><strong>Thesis:</strong> <em>Not</em> broad pipeline re-acceleration — a <strong>contemporaneous energy shock</strong> hitting CPI and PPI at the same time, while underlying demand stays contained. Ugly headlines, contained core.</p>
+<ul>
+<li><strong>Contemporaneous, not leading:</strong> ~80% of the PPI jump was goods (energy +10.7%, wholesale gasoline +23.4%). Core PPI isn't building, so the "PPI→CPI passthrough" case doesn't hold; forward risk is conditional on oil staying elevated.</li>
+<li><strong>Supply-side, not demand-driven:</strong> a commodity/tariff shock; the demand-slowing tool can't fix an oil price.</li>
+<li><strong>Fed:</strong> 2026 cuts off (~72/102 economists see a hold at 3.50–3.75%; ~96–97% hold odds at Jun 16–17). A hike is a ~6% tail, not a base case.</li>
+<li><strong>Bottom line:</strong> optics stay hot, Fed parked; the risk to track is the <strong>duration</strong> of the energy shock — not a broad spiral or near-term hike.</li>
+</ul>
+<h2>Macro Synthesis</h2>
+<p><strong>Written by:</strong> Macro Strategist (orchestrator).</p>
+<p><strong>Regime: an energy-supply-shock-driven stagflationary tilt, with a genuine policy-regime signal (the ECB's first hike since 2023) — but core inflation and wages are still contained, which keeps it a relative-price shock rather than a spiral.</strong></p>
+<ul>
+<li><strong>Inflation pipeline (ISM Prices Paid → PPI → CPI → PCE):</strong> An Iran / Strait-of-Hormuz energy spike is inflating <em>headline</em> everywhere — CPI <strong>+4.2% y/y</strong>, PPI <strong>+6.5% y/y</strong>, euro-area HICP <strong>+3.2%</strong>, ISM Prices Paid at multi-year highs in both surveys. <strong>Five domains corroborate</strong> — signal, not noise. <strong>But underlying core is easing</strong> (core CPI <strong>+0.2% m/m</strong>, core PPI <strong>+0.4% m/m</strong>) → the heat is energy, not broad demand.</li>
+<li><strong>Labour leg (Claims → JOLTS/ADP → NFP; AHE → CPI):</strong> Coincident data <strong>firm</strong> (NFP <strong>+172K</strong>, unemployment <strong>4.3%</strong>), but the <strong>leading edge is softening across three domains at once</strong> (claims 229K, JOLTS hire rate 3.2%, ISM Employment &lt;50 in both, CB jobs-differential +6.9%). Leads aligned but haven't pulled the coincident down — <strong>not a confirmed turn.</strong> Wages <strong>contained</strong> (AHE +3.4% y/y) → <strong>no wage-price spiral.</strong></li>
+<li><strong>Growth leg (New Orders / Retail / Durables → GDP):</strong> A soft Q1 (GDP <strong>+1.6%</strong>) giving way to a modest <strong>Q2 re-firming</strong> — ISM New Orders strong in both, IP +0.7%, Retail control +0.5%. Caveats: <strong>core capex −1.1%</strong> and ISM-employment softness.</li>
+<li><strong>Housing leg (Permits → Starts):</strong> Mixed / rate-sensitive — lagging EHS firming (May <strong>+3.2%</strong>) but leading gauges soft, 30-yr back to <strong>6.44%</strong>. May Permits/Starts (Jun 16) is the tell.</li>
+<li><strong>Policy (the cumulation):</strong> The <strong>ECB hiked +25bp (Jun 11) — its first since 2023</strong> — a stagflationary hike. The Fed held 3.50–3.75% but the Jun 3 Beige Book shows energy-driven prices broadening, into <strong>Warsh's debut FOMC (Jun 16–17) + fresh dots.</strong> BoE Jun 18: hold, hawkish tilt.</li>
+</ul>
+<p><strong>Net:</strong> beneath ugly energy-driven headlines, core disinflation and contained wages persist — a supply shock the Fed will likely look <em>through.</em> Cross-asset: firmer DM yields and USD/EUR, equities vulnerable to the stagflationary tilt, gold capped by higher real-rate expectations.</p>
+<p><strong>Regime watch — what confirms vs. denies a regime change:</strong>
+- <strong>Toward sticky inflation (hawkish tail):</strong> UMich long-run expectations rise further; core PCE (Jun 25) prints hot; Warsh's dots shift up; oil takes another leg higher.
+- <strong>Toward the benign "energy-only, contained-core" read:</strong> expectations stabilize / retrace (UMich 5–10yr already eased to 3.4%); core PCE stays ~+0.2%; oil stabilizes.
+- <strong>Toward a labour turn (dual-mandate bind):</strong> the aligned softening leads finally pull down a coincident print — a soft June NFP (Jul 2) and/or a continued claims climb.</p>
+<p><strong>Week ahead:</strong> Jun 16 — May Building Permits &amp; Housing Starts; Retail Sales &amp; IP. Jun 16–17 — FOMC: Warsh's debut + SEP / dot plot. Jun 17 — May UK CPI + Eurozone final HICP. Jun 18 — BoE + weekly Jobless Claims. Jun 25 — May PCE (core the marquee), GDP Q1 3rd est, Durable Goods.</p>
+<p><strong>Swarm health:</strong> All 6 active domains fresh (&lt;36h) as of the Jun 12 wrap. Financial Conditions &amp; Markets (Market Watch) not yet live.</p>
+  </div>
+</main>
+<footer class="site-footer">
+  <p class="attrib">Service offered by <a href="https://atnode.ai" target="_blank" rel="noopener noreferrer">atnode.ai</a> using the awesome <a href="https://hyperagent.com" target="_blank" rel="noopener noreferrer">hyperagent platform</a>.</p>
+  <p class="gl">Published automatically every Saturday · Internal monitoring summary — not investment advice.</p>
+</footer>
+</body>
+</html>

@@ -143,6 +143,10 @@
   .docfoot{margin-top:26px; padding-top:16px; border-top:1px solid var(--line);
     font-size:11px; color:var(--muted); line-height:1.5;}
   .docfoot .gl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#6b7785;}
+  .site-footer{width:min(880px,94vw); margin:24px auto 40px; text-align:center; font-size:13px; color:var(--muted);}
+  .site-footer .attrib a{color:var(--blue); font-weight:600; text-decoration:none;}
+  .site-footer .attrib a:hover{text-decoration:underline;}
+  .site-footer .gl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#7a8694; margin-top:8px;}
 </style>
 </head>
 <body>
@@ -280,6 +284,11 @@
   </div>
   <div class="footline">MACRO MONITOR · WEEKLY</div>
 </section>
+
+<footer class="site-footer">
+  <p class="attrib">Service offered by <a href="https://atnode.ai" target="_blank" rel="noopener noreferrer">atnode.ai</a> using the awesome <a href="https://hyperagent.com" target="_blank" rel="noopener noreferrer">hyperagent platform</a>.</p>
+  <p class="gl">Published automatically every Saturday · Internal monitoring summary — not investment advice.</p>
+</footer>
 
 <script>
   const valueLabels = {

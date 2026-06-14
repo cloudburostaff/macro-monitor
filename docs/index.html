@@ -73,6 +73,10 @@
   .foot{width:min(880px,94vw); margin:22px auto 0; font-size:11.5px; color:var(--muted);
     line-height:1.5; text-align:center;}
   .foot .gl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#7a8694;}
+  .foot .attrib{font-size:13px; color:var(--ink);}
+  .foot .attrib a{color:var(--blue); font-weight:600; text-decoration:none;}
+  .foot .attrib a:hover{text-decoration:underline;}
+  .section-note{font-size:13px; color:var(--muted); margin:0 0 8px;}
 </style>
 </head>
 <body>
@@ -113,12 +117,32 @@
       </div>
     </a>
   </div>
+
+  <div class="reports-head">
+    <h2>Weekly Detailed Blackboard</h2>
+    <span class="meta">Source data · newest first</span>
+  </div>
+  <p class="section-note">The full swarm data snapshot behind each briefing — every domain's release tables, current stance and the cross-indicator synthesis that produced the business report.</p>
+
+  <div class="report-list">
+    <!-- BLACKBOARD:INSERT -->
+    <a class="report-row" href="blackboard/2026-W24.html">
+      <div class="rr-left">
+        <span class="rr-wk">2026 · W24</span>
+        <span class="rr-title">Detailed Blackboard Snapshot</span>
+      </div>
+      <div class="rr-right">
+        <span class="rr-date">Week ending 12 Jun 2026</span>
+        <span class="rr-cta">View →</span>
+      </div>
+    </a>
+  </div>
 </main>
 
-<div class="foot">
-  <p>Published automatically every Saturday by the Macro Monitor swarm.</p>
-  <p class="gl">INTERNAL MONITORING SUMMARY — NOT INVESTMENT ADVICE.</p>
-</div>
+<footer class="foot">
+  <p class="attrib">Service offered by <a href="https://atnode.ai" target="_blank" rel="noopener noreferrer">atnode.ai</a> using the awesome <a href="https://hyperagent.com" target="_blank" rel="noopener noreferrer">hyperagent platform</a>.</p>
+  <p class="gl">Published automatically every Saturday · Internal monitoring summary — not investment advice.</p>
+</footer>
 
 </body>
 </html>
