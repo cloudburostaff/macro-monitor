@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <style>
   :root{
     --navy:#0f2a4a; --blue:#1f5fa8; --ink:#1a2230; --muted:#5b6776;
@@ -147,6 +146,25 @@
   .site-footer .attrib a{color:var(--blue); font-weight:600; text-decoration:none;}
   .site-footer .attrib a:hover{text-decoration:underline;}
   .site-footer .gl{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#7a8694; margin-top:8px;}
+  /* dependency-free bar chart (no CDN / no JS) */
+  .bc{margin-top:2px;}
+  .bc-plot{position:relative; height:200px; margin-left:32px; border-bottom:1px solid var(--line);}
+  .bc-line{position:absolute; left:0; right:0; border-top:1px dashed #eef1f4;}
+  .bc-line i{position:absolute; left:-32px; top:-8px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-style:normal; color:#9aa6b4;}
+  .bc-line.base{border-top:none;}
+  .bc-groups{position:absolute; inset:0; display:flex;}
+  .bc-grp{flex:1; display:flex; align-items:flex-end; justify-content:center;}
+  .bc-bars{display:flex; align-items:flex-end; gap:16px; height:100%;}
+  .bc-bar{width:58px; border-radius:4px 4px 0 0; position:relative;}
+  .bc-bar.hd{background:var(--hot);}
+  .bc-bar.co{background:var(--blue);}
+  .bc-bar b{position:absolute; top:-19px; left:50%; transform:translateX(-50%); font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:12px; color:var(--ink); white-space:nowrap;}
+  .bc-x{display:flex; margin:8px 0 0 32px;}
+  .bc-x span{flex:1; text-align:center; font-size:12.5px; font-weight:600; color:var(--ink);}
+  .bc-legend{display:flex; align-items:center; justify-content:center; gap:7px; margin-top:14px; font-size:12px; color:var(--muted);}
+  .bc-legend .sw{width:12px; height:12px; border-radius:3px; display:inline-block;}
+  .bc-legend .sw.hd{background:var(--hot);}
+  .bc-legend .sw.co{background:var(--blue); margin-left:12px;}
 </style>
 </head>
 <body>
@@ -232,7 +250,27 @@
   <div class="chartcard">
     <div class="ct">Headline runs hot; core stays tame</div>
     <div class="cs">Consumer (CPI) &amp; producer (PPI) prices, % change year-on-year</div>
-    <div class="chartwrap"><canvas id="inflChart"></canvas></div>
+    <div class="bc">
+      <div class="bc-plot">
+        <div class="bc-line" style="bottom:100%"><i>8%</i></div>
+        <div class="bc-line" style="bottom:75%"><i>6%</i></div>
+        <div class="bc-line" style="bottom:50%"><i>4%</i></div>
+        <div class="bc-line" style="bottom:25%"><i>2%</i></div>
+        <div class="bc-line base" style="bottom:0"><i>0%</i></div>
+        <div class="bc-groups">
+          <div class="bc-grp"><div class="bc-bars">
+            <div class="bc-bar hd" style="height:52.5%"><b>+4.2%</b></div>
+            <div class="bc-bar co" style="height:36.25%"><b>+2.9%</b></div>
+          </div></div>
+          <div class="bc-grp"><div class="bc-bars">
+            <div class="bc-bar hd" style="height:81.25%"><b>+6.5%</b></div>
+            <div class="bc-bar co" style="height:61.25%"><b>+4.9%</b></div>
+          </div></div>
+        </div>
+      </div>
+      <div class="bc-x"><span>CPI (consumer)</span><span>PPI (producer)</span></div>
+      <div class="bc-legend"><span class="sw hd"></span>Headline<span class="sw co"></span>Core (ex food &amp; energy)</div>
+    </div>
     <div class="cap">Energy lifts the headline figures, but core (ex food &amp; energy) sits well below — the signature of a price shock, not a spiral.</div>
   </div>
   <div class="block" style="margin-top:18px;">
@@ -289,35 +327,5 @@
   <p class="attrib">Service offered by <a href="https://atnode.ai" target="_blank" rel="noopener noreferrer">atnode.ai</a> using the awesome <a href="https://hyperagent.com" target="_blank" rel="noopener noreferrer">hyperagent platform</a>.</p>
   <p class="gl">Published automatically every Saturday · Internal monitoring summary — not investment advice.</p>
 </footer>
-
-<script>
-  const valueLabels = {
-    id:'valueLabels',
-    afterDatasetsDraw(chart){
-      const {ctx}=chart;
-      chart.data.datasets.forEach((ds,i)=>{
-        const meta=chart.getDatasetMeta(i);
-        meta.data.forEach((bar,idx)=>{
-          ctx.save(); ctx.fillStyle='#1a2230';
-          ctx.font='600 12px "IBM Plex Mono", monospace'; ctx.textAlign='center';
-          ctx.fillText('+'+ds.data[idx].toFixed(1)+'%', bar.x, bar.y-7); ctx.restore();
-        });
-      });
-    }
-  };
-  new Chart(document.getElementById('inflChart'),{
-    type:'bar',
-    data:{ labels:['CPI (consumer)','PPI (producer)'],
-      datasets:[
-        {label:'Headline', data:[4.2,6.5], backgroundColor:'#c0392b', borderRadius:4, barPercentage:.62, categoryPercentage:.6},
-        {label:'Core (ex food & energy)', data:[2.9,4.9], backgroundColor:'#1f5fa8', borderRadius:4, barPercentage:.62, categoryPercentage:.6}
-      ]},
-    options:{ responsive:true, maintainAspectRatio:false, layout:{padding:{top:18}},
-      plugins:{ legend:{position:'bottom', labels:{font:{family:'Inter',size:12}, color:'#5b6776', boxWidth:12, boxHeight:12, padding:16}}, tooltip:{enabled:false} },
-      scales:{ y:{beginAtZero:true, max:8, ticks:{callback:v=>v+'%', font:{family:'IBM Plex Mono',size:11}, color:'#9aa6b4'}, grid:{color:'#eef1f4'}, border:{display:false}},
-        x:{ticks:{font:{family:'Inter',size:12.5,weight:'600'}, color:'#1a2230'}, grid:{display:false}, border:{color:'#e2e7ee'}} }},
-    plugins:[valueLabels]
-  });
-</script>
 </body>
 </html>
